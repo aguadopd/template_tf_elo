@@ -1,14 +1,53 @@
-% Clase del documento. Koma-Script Report de base.
-\documentclass[draft,spanish,twoside=no]{scrreprt}
-%\documentclass[final,spanish,twoside=no]{scrreprt}
-\KOMAoptions{numbers=noendperiod} %NO ESTA FUNCIONANDO
+% Clase del documento. KOMA-Script Report de base.
+
+% Asumimos una impresión a dos caras, dejando un margen para la
+% encuadernación y no respeteando los márgenes solicitados.
+% Las opciones 'draft' o 'final' permiten compilar un documento de
+% borrador o el final, respectivamente. En el borrador, para menor
+% tamaño y mayor velocidad de compilación, no se incluyen las imágenes,
+% entre otras cosas. Comentar y descomentar a gusto.
+
+%\documentclass[draft,twoside=yes,bibliography=totoc]{scrreprt}
+\documentclass[final,twoside=yes,bibliography=totoc]{scrreprt}
+
+% Otras notas: 
+%   Usar 'spanish' como opción global del documento provoca errores en los
+%   paquetes 'babel' y 'csquotes'.
+% 
+%   'bibliography=totoc' debe estar como opción global por requerimiento de
+%   BibLaTeX. No funciona como \KOMAoptions{bibliography=totoc} o
+%   \KOMAoption{bibliography}{totoc}. Me parece que es culpa de Biblatex o
+%   Biber y no de Koma.
+
+
+% Las numeraciones de secciones y figuras no tienen un punto al final
+% (nosotros usamos '2.1' en lugar de '2.1.'). Necesita también
+% 'es-nosectiondot' o 'es-nolayout' en babel.
+\KOMAoptions{numbers=noendperiod} 
+
+
 %\KOMAoptions{headinclude=true}
 %\KOMAoptions{footinclude=true}
 %\KOMAoptions{DIV=15}
 
 
+% Elegimos que los capítulos empiecen en páginas izquierdas o derechas 
+% indistitamente, para ahorrar papel. Otras opciones: 'left' y 'right'.
+\KOMAoptions{open=any}
+
+ 
+% El commando \raggedbottom puede estar en cualquier parte del documento y sirve
+% para que todas las páginas tengan una longitud vertical natural de su contenido, en
+% lugar de estirar algunos espacios para intentar que frente y dorso ocupen más o 
+% menos el mismo espacio. Esta opción está por defecto en documentos de un solo lado,
+% pero no en los de dos lados
+\raggedbottom
+
+
 
 % IDIOMA
+% Por problemas que no recuerdo, usamos PdfLaTeX como motor y Babel para
+% el idioma. En caso contrario, Polyglossia.
 % Polyglossia - An alternative to babel for XeLaTeX and LuaLaTeX
 % https://ctan.org/pkg/polyglossia
 % Este paquete es para mejor soporte de idiomas.
@@ -18,92 +57,169 @@
 % Para escribir en inglés, usar el comando \textenglish{texto}
 % o el entorno english: \begin{english}[opciones]{}\end{english}
 
-\usepackage[utf8]{inputenc}
-% Make latex understand and use the typographic
-% rules of the language used in the document.
-\usepackage[main=spanish, english]{babel}
-\babeltags{en = english} % Y entonces \texten{texto} servirá para inglés. igual usaremos macro \ingles{texto}.
-%Para cosas largas: \begin{en} y \end{en}
 
-%\addto\captionsspanish{
-% \def\tablename{Tabla}
-% \def\listtablename{\'Indice de tablas}
-%}
+% El paquete 'inputenc' nos permitirá usar UTF8 como codificación de entrada.
+% Esto nos permite escribir nativamente en UTF8 sin preocuparnos.
+% Importante: las fuentes cargadas deben soportar los caracteres usados.
+\usepackage[utf8]{inputenc}
+
+
+
+% El paquete babel carga las reglas tipográficas correspondientes a cada idioma
+% que usemos en el documento. 'es-nosectiondot' es para no agregar puntos finales
+% en los números de sección y figura. 'es-nolists' es para no modificar los
+% estilos de lista de Koma.
+% Puede ser interesante lo de la opción 'mexico', pero no está funcionando...
+\usepackage[english,spanish,es-nosectiondot,es-nolists]{babel}
+%\usepackage[english,spanish,mexico-com,es-nosectiondot,es-nolists]{babel}
+%\usepackage[english,spanish,es-nosectiondot,es-nolayout]{babel}
+
+% Seleccionamos el idioma por defecto de ahora en adelante.
+\selectlanguage{spanish}
+
+% Un atajo:
+\babeltags{en = english}
+% Y entonces \texten{texto} servirá para inglés. igual usaremos macro \ingles{texto}.
+% Para cosas largas: \begin{en} y \end{en}
 
 
 % Para usar 'tablas' en lugar de 'cuadros'.
 % Alternativa si usamos Koma-Script:
 \renewcaptionname{spanish}{\listtablename}{Índice de tablas}
 \renewcaptionname{spanish}{\tablename}{Tabla}
+
 % Alternativa propuesta por Polyglossia:
 %\usepackage{etoolbox}
 %\gappto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 %\gappto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}
 
+% En caso de Babel:
+%\addto\captionsspanish{
+%	\def\tablename{Tabla}
+%	\def\listtablename{\'Indice de tablas}
+%   \def\figurename{Figura}
+%}
 
 
-%Tamaño de papel: A4 
 
-%Márgenes: Superior = Inferior = 2,5cm; Izquierdo = 2cm; Derecho = 2cm 
-\usepackage[left=2cm,top=2.5cm,right=2cm,bottom=2.5cm,bindingoffset=0cm,footskip=1.5cm]{geometry}
+% FORMATO
+% Con * los requerimientos de la Comisión.
 
-%Impresión en doble faz.
-% Está arriba con twoside=no
+% * Tamaño de papel: A4 
+% Esto está por defecto en KOMA-Script.
 
-%Letra tamaño 12. Tipo Arial o Times New Roman. 
+
+% * Márgenes: Superior = Inferior = 2,5cm; Izquierdo = 2cm; Derecho = 2cm 
+% Lo desplazo medio centímetro hacia afuera, para agregar espacio para
+% la encuadernación.
+\usepackage[inner=2.5cm,top=2.5cm,outer=1.5cm,bottom=2.5cm,bindingoffset=0cm,footskip=1.5cm]{geometry}
+
+
+% * Impresión en doble faz.
+% Está arriba con twoside=yes
+
+
+% * Letra tamaño 12. Tipo Arial o Times New Roman. 
+\KOMAoptions{fontsize=12pt}
+
+% Arial y Times New Roman son propietarias y no necesariamente los alumnos las 
+% tienen. Pero existen muchos clones o equivalentes.
+
 %\usepackage{helvet}
 %\usepackage[scaled]{helvet} 
 %Helvetica is actually somewhat larger than other typefaces of the same nominal size.  As a result, mixing, e.g., Times and Helvetica within running text may look bad. This  can  be  fixed  by  loading  the  package  with  the  option [scaled=〈scale〉], for instance: \usepackage[scaled=.92]{helvet}.  As a result, the font family phv (Helvetica) will be scaled down to 92% of its ‘natural’ size, which is suitable for use with Adobe Times.  Specifying [scaled] alone is equivalent to [scaled=0.95].
 
-\usepackage{newtxtext, newtxmath} % JUSTIFICAR
+% No recuerdo la causa pero
+% Elegimos la familia NewTx para texto, matemática y texto monoespaciado.
+\usepackage{newtxtext, newtxmath}
+% Fuente monoespaciada ligeramente escaladada para tener el mismo tamaño que el resto.1
 \usepackage[zerostyle=d,scaled=.95]{newtxtt}
 %\usepackage[scaled=.8]{beramono}
+
+% Por defecto, el cuerpo del texto está en la familia con serifa (tipo Times), mientras
+% que la sin serifa (paloseco) se usa en títulos y detalles. Podría cambiarse con el siguiente comando, pero habría que cambiar varias cosas más. Lo recomendable es que el cuerpo esté en una fuente con serifa.
 %\renewcommand{\familydefault}{\sfdefault}
-\KOMAoptions{fontsize=12pt}
 
-%Espaciado de renglones: 1 (Espaciado simple). 
+
+
+% * Espaciado de renglones: 1 (Espaciado simple). 
 %\usepackage[singlespacing]{setspace} 
-% KOMA lo tiene por defecto
+% Koma lo tiene por defecto
 
 
-%Espaciado de párrafos: un renglón libre.Cada punto aparte genera un párrafo. //Entonces no habrá sangrías.
+%* Espaciado de párrafos: un renglón libre.Cada punto aparte genera un párrafo. //Entonces no habrá sangrías. O usás sangrado o usás espaciado.
 \KOMAoptions{parskip=full}
 
-%Ecuaciones  centradas.  Deben  aparecer  después  de  ser  citadas  en  el  texto. Numeración entre paréntesis justificada a la derecha. 
 
-%Todas  las  figuras  deben  estar  centradas,  tener  un  Nº  de  figura  y  leyenda.  Deben aparecer después de ser citadas en el texto. 
+% * Ecuaciones  centradas.  Deben  aparecer  después  de  ser  citadas  en  el  texto. Numeración entre paréntesis justificada a la derecha. 
+% Por defecto en LaTeX.
 
-%Encabezado de página: en todas las páginas exceptuando los inicios de capítulo. El encabezado debe incluir el número y título de capítulo en cursiva tamaño 9 y estar justificado a la izquierda.
+
+% * Todas  las  figuras  deben  estar  centradas,  tener  un  Nº  de  figura  y  leyenda.  Deben aparecer después de ser citadas en el texto.
+% Ver ejemplos en los capítulos y comentarios en secciones/macros.tex.
+
+
+% * Encabezado de página: en todas las páginas exceptuando los inicios de capítulo. El encabezado debe incluir el número y título de capítulo en cursiva tamaño 9 y estar justificado a la izquierda.
+% 'headsepline' es la línea que separa la cabecera del cuerpo.
 \usepackage[automark,headsepline,draft=false]{scrlayer-scrpage}
 \clearpairofpagestyles
-\lohead{\headmark}
-\setkomafont{pageheadfoot}{\itshape\footnotesize} % scriptsize es 8 si base es 12. Else: footnotesize, que es 10.
+
+% Justificado a la izquierda e ambos lados:
+\lohead{\headmark} % left even
+\lehead{\headmark} % left odd
+%\ohead{\headmark} % outer
+
+% scriptsize es 8 si el tamaño base de la fuente es 12.
+% footnotesize es 10 en el mismo caso.
+\setkomafont{pageheadfoot}{\itshape\footnotesize} 
 \pagestyle{scrheadings}
 
-%Numeración  de  páginas  en  el  pié  de  página,  justificada  a  la  derecha,  número  no cursivo, tamaño 12. 
-\ofoot[\pagemark]{\pagemark} % opcion incluye las planas
-%\ofoot[]{\pagemark}
+
+%* Numeración  de  páginas  en  el  pié  de  página,  justificada  a  la  derecha,  número  no cursivo, tamaño 12. 
 \setkomafont{pagenumber}{\upshape\normalsize} %12
 
-%Tamaño de títulos:  
-%//Quedan muy chicos. Deberíamos usar los sugeridos por defecto.
-%De capítulo    16 en negrita 
+% Elegimos que estén del lado externo de las páginas.
+\ofoot[\pagemark]{\pagemark} % opcion incluye las páginas con estilo plano.
+%\ofoot[]{\pagemark} % no incluye las páginas con estilo plano (aperturas de capítulo).
+
+
+
+% Tamaño de títulos. Con base 12pt, la opción 'small' de 'headings
+% queda en (ver capítulo 3 de Koma-Script):
+% Capítulo: \Large 17.28
+% Sección: \large 14.4
+% Subsección: \normalsize 12
+% Subsubsección: \normalsize 12
+% Minisec: \normalsize 12
+% Par: \normalsize 12
+%\KOMAoptions{headings}
+
+
+% * Tamaño de títulos:  
+%//Quedan muy chicos. Deberíamos usar los sugeridos por defecto en KOMA-Script.
+
+% * De capítulo    16 en negrita 
 \setkomafont{chapter}{\bfseries\Large} % 17,28pt
 
-%De secciones  14 en negrita 
+% * De secciones  14 en negrita 
 \setkomafont{section}{\bfseries\large} % 14,4pt
 
-%Secundarios   14 en negrita 
+% * Secundarios   14 en negrita 
 \setkomafont{subsection}{\bfseries\large} % 14,4pt
 
-
-%No referenciados  12 en negrita
+% * No referenciados  12 en negrita
 %\setkomafont{subsubsection}{\itshape\bfseries\normalsize} % 12. Italics para más contraste con el texto común.
-\setkomafont{subsubsection}{\bfseries\normalsize} % 12. Les puse color, así que no hace falta que estén en cursiva.
+\setkomafont{subsubsection}{\bfseries\normalsize} % 12. Les puse color, así que no hace falta que estén en cursiva. Ver en config/preambulo_otros.tex. 
 
-\setkomafont{minisec}{\itshape\bfseries\normalsize}
+% minisec es un encabezado provisto por KOMA-Script. Es más cercano al texto, de la menor importancia posible, pero mayor que \paragraph{}. Lo usamos con un color distinto a los títulos, porque tiene el mismo tamaño que el texto (\normalsize). Ver en config/preambulo_otros.tex. 
+\setkomafont{minisec}{\normalsize}
 
-%Máxima cantidad de niveles de títulos referenciados: 3 
+% Ver 'headings=selection' en ayuda de Koma-Script, capítulo 3. Podría ser bueno usar
+% 'headings = small'.
+
+
+
+% * Máxima cantidad de niveles de títulos referenciados: 3 (hasta subsección)
 %0. Capítulo / Título
 %1. Sección
 %2. Subsección
@@ -111,7 +227,6 @@
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{\subsectionnumdepth}
 
-%Después de la tapa celeste con ventana provista por la secretaría del Departamento de  Electrónica  y  Automática,  sigue  una  hoja  impresa  provista  por  la Comisión  de Trabajos Finales donde, en el espacio correspondiente a la ventana debe escribirse el título de trabajo final, el nombre de los autores y el año. 
- 
-%A continuación sigue una hoja donde se escribe: Universidad Nacional de San Juan,Facultad  de  Ingeniería,  Departamento  de  Electrónica  y  Automática,  el  título  del trabajo final, el nombre de los autores, el nombre de los asesores y el año. Luego sigue una hoja con los agradecimientos. En otra hoja se inicia la escritura del índice. Finalmente sigue el resto del trabajo. 
+% * Después de la tapa celeste con ventana provista por la secretaría del Departamento de  Electrónica  y  Automática,  sigue  una  hoja  impresa  provista  por  la Comisión  de Trabajos Finales donde, en el espacio correspondiente a la ventana debe escribirse el título de trabajo final, el nombre de los autores y el año. 
 
+% * A continuación sigue una hoja donde se escribe: Universidad Nacional de San Juan,Facultad  de  Ingeniería,  Departamento  de  Electrónica  y  Automática,  el  título  del trabajo final, el nombre de los autores, el nombre de los asesores y el año. Luego sigue una hoja con los agradecimientos. En otra hoja se inicia la escritura del índice. Finalmente sigue el resto del trabajo. 

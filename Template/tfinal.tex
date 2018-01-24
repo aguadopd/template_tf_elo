@@ -22,10 +22,12 @@
 %    LATEX
 %  1. Manual de LaTeX en Wikibooks
 %      Español  https://es.wikibooks.org/wiki/Manual_de_LaTeX (está menos completo que el
-%                                                                                                      que está inglés, podés ayudar
-%                                                                                                                             a la traducción)
+%          														 que está inglés, podés ayudar
+%            														 a la traducción)
 %      Inglés https://en.wikibooks.org/wiki/LaTeX
 %  2. TEX en StackExchange  https://tex.stackexchange.com/
+%  3. http://www.texnia.com
+%  4. http://www.cervantex.es/
 
 
 %  ---------------------------------------------------------------------------------------
@@ -80,7 +82,7 @@
 %      COSAS PENDIENTES
 % Una lista de cosas para hacer. Depende del paquete 'todonotes'. Se dejará de imprimir
 % si se usa la opcion 'final' en la definición de clase del documento:
-%   \documentclass[final,spanish,twoside=no]{scrreprt}
+%   \documentclass[final,spanish,twoside=yes]{scrreprt}
 % Ver en 'preambulo_UNSJ.tex'
 \listoftodos  % Comando para incluir la lista de cosas para hacer.
 
@@ -90,15 +92,16 @@
 
 
 %      AGRADECIMIENTOS
+\thispagestyle{empty} % Para que no muestre número de página ni cabecera
 \input{secciones/agradecimientos.tex}
 
 
 % Los tipos de página se pueden cambiar con \pagestyle{option} y con
 % \thispagestyle{option} para una sola página.
 % Los tipos de página para esta plantilla con con Koma-Script son:
-%   empty                   vacía
-% plain.scrheadings  sólo números de página
-%   scrheadings         números de página y cabecera
+%   empty: vacía
+%   plain.scrheadings: sólo números de página
+%   scrheadings: números de página y cabecera
 %
 % Por defecto, el cuerpo usa plain.scrheadings, por lo que tenemos que decir que 
 % queremos tener cabeceras también, incluso en los índices.
@@ -135,6 +138,8 @@
 %      CAPÍTULOS
 % Capítulos de ejemplo. No hay ninguna estructura establecida.
 \input{secciones/capitulo1.tex}
+\input{secciones/capitulo2.tex}
+\input{secciones/capitulo3.tex}
 %\input{secciones/conclusiones.tex}
 
 
@@ -146,11 +151,13 @@
 
 % Normalmente, los comandos de imprimir bibliografía sólo incluiran aquellas referencias
 % que fueron citadas en el texto. Si queremos incluir todas, aunque no estén citadas, 
-% usamos el comando \nocite{*}.
+% usamos el comando \nocite{*}. Si queremos incluir algunas específicamente, las
+% referenciamos con su nombre. Ej: \nocite{graffigna}
 %Incluimos en la bibliografía todas (*) las referencias no citadas en el texto.
 %\nocite{*} 
+\nocite{graffigna}
 
-% REVISAR QUE SE IMPRIMAN EN EL ÍNDICE
+
 % Este comando imprime toda la bibliografía. Ver más en la documentación de BibLaTeX.
 %\printbibliography
 %\printbibliography[title={Referencias}]
@@ -158,9 +165,10 @@
 % Otra opción es ordenarlas arbitrariamente. En este caso, decidí usar tres categorías:
 % referencias generales, programas y créditos de imágenes.
 % Para ello, cada elemento del archivo '.bib' debe tener una clave 'keyword'.
-\printbibliography[keyword={referencias},title={Referencias}]
-\printbibliography[keyword={software},title={Programas}]
-\printbibliography[keyword={imagenes},title={Créditos de imágenes}]
+% heading=bibintoc y heading=subbibintoc sirven para incluirlas en el índice genral.
+\printbibliography[heading=bibintoc,keyword={referencias},title={Referencias}]
+\printbibliography[heading=subbibintoc,keyword={software},title={Programas}]
+\printbibliography[heading=subbibintoc,keyword={imagenes},title={Créditos de imágenes}]
 
 
 
