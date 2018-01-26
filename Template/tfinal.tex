@@ -16,6 +16,9 @@
 %  comentada. Además incluimos comentarios útiles para quienes se están iniciando en LaTeX.
 %
 %  Usamos Koma-Script como clase base. La clase de este documento es Koma-Script Report.
+%  Todo está probado usando PDFLaTeX como compilador. LuaLaTeX y XeLaTeX pueden 
+%  provocar errores usando esta plantilla.
+% 
 %  A continuación, algunas recomendaciones.
 %  
 %  FUENTES DE INFORMACIÓN
@@ -114,8 +117,11 @@
 
 %      ÍNDICES
 % Índice normal / tabla de contenidos
+%  Comandos para agregar marcador de índice al PDF generado
+\if@openright\cleardoublepage\else\clearpage\fi%
+\pdfbookmark[0]{\contentsname}{toc}%
+%  Índice general
 \tableofcontents
-
 
 % Índice de tablas (innecesario para nuestro trabajo final)
 %\listoftables

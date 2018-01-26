@@ -5,14 +5,17 @@
 % Las opciones 'draft' o 'final' permiten compilar un documento de
 % borrador o el final, respectivamente. En el borrador, para menor
 % tamaño y mayor velocidad de compilación, no se incluyen las imágenes,
-% entre otras cosas. Comentar y descomentar a gusto.
+% entre otras cosas. En modo borrador se incluyen las notas de cosas
+% pendientes generadas con el paquete 'todonotes' (ver en
+% preambulo_otros.tex), pero esto se puede cambiar.
+% Comentar y descomentar a gusto.
 
 %\documentclass[draft,twoside=yes,bibliography=totoc]{scrreprt}
 \documentclass[final,twoside=yes,bibliography=totoc]{scrreprt}
 
 % Otras notas: 
 %   Usar 'spanish' como opción global del documento provoca errores en los
-%   paquetes 'babel' y 'csquotes'.
+%   paquetes 'babel' y 'csquotes'. (Creo que era algo con las comillas).
 % 
 %   'bibliography=totoc' debe estar como opción global por requerimiento de
 %   BibLaTeX. No funciona como \KOMAoptions{bibliography=totoc} o
@@ -40,7 +43,7 @@
 % para que todas las páginas tengan una longitud vertical natural de su contenido, en
 % lugar de estirar algunos espacios para intentar que frente y dorso ocupen más o 
 % menos el mismo espacio. Esta opción está por defecto en documentos de un solo lado,
-% pero no en los de dos lados
+% pero no en los de doble faz.
 \raggedbottom
 
 

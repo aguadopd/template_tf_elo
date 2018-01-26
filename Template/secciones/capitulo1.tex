@@ -222,3 +222,33 @@ La longitud media de los vectores $ \bm{v_n} $ se define como:
 Y la \textbf{desviación estándar circular} como:
 %
 \begin{equation} S = \sqrt{\ln\left(\frac{1}{\bar{R}^2}\right)} = \sqrt{-2 \ln \left( \bar{R}^2 \right) } \end{equation}
+
+
+\paragraph{Un poco de código}
+
+A continuación, un poco de código de \nombre{Matlab}, usando el paquete \programa{listings}.\footnote{Ver también el paquete \programa{minted}, se ve muy interesante.}
+
+
+\lstinputlisting[style=Matlab-editor, basicstyle=\small, caption = {Cálculo del vector de covarianza de dos señales.}]{codigo/matlab.m}
+
+
+
+Y un poco más de código, pero esta vez en C++:
+% NOTA: Puedo incluirlo así porque no tiene caracteres no ASCII. 
+% Lo más fácil, para evitar problemas extraños, es no incluir el código dentro
+% del archivo .tex, sino importarlo desde archivos externos. Esto implica no
+% usar el entorno 'lstlisting' sino usar el comando
+% \lstinputlisting[opciones]{archivo}
+\begin{lstlisting}[language=c++, caption = {Swap values (https://cpppatterns.com/patterns/swap-values.html)}, title=Swap values]
+#include <utility>
+#include <string>
+
+int main() {
+
+  std::string s1 = "Hello";
+  std::string s2 = "World";
+  using std::swap;
+  swap(s1, s2);
+  
+}
+\end{lstlisting}

@@ -46,6 +46,7 @@
 
 
 % TABLAS
+% https://en.wikibooks.org/wiki/LaTeX/Tables
 
 % Make the standard latex tables look so much better
 % An extended implementation of the array and tabular environments which extends the options for column formats, and provides "programmable" format specifications.
@@ -60,6 +61,8 @@
 % latest version and documentation can be obtained at:
 % http://www.ctan.org/pkg/array
 \usepackage{array,booktabs}
+% Sugerimos leer la documentación del paquete 'booktabs', ya que 
+% discute interesantes cuestiones de estilo de tablas.
 
 
 % Para poder usar celdas que abarquen más de una fila.
@@ -69,6 +72,9 @@
 % El paquete Tabulary ofrece más (y mejores) opciones de columnas para 
 % la creación de tablas.
 % Tabularx es otra alternativa.
+% Sugerimos usar asistentes para la creación de tablas, sea online o
+% del editor de LaTeX que estés usando (como TeXstudio).
+% Uno online es https://www.tablesgenerator.com/
 \usepackage{tabulary}
 %\usepackage{tabularx}
 
@@ -152,6 +158,30 @@
 
 
 % FORMATO
+% NOTA: Ver también el paquete 'minted', se ve muy interesante
+% Código de programa:
+% El paquete listingsutf8 nos permite cargar código con carateres no ASCII,
+% una limitación del paquete listings.
+% Lo más fácil, para evitar problemas extraños, es no incluir el código dentro
+% del archivo .tex, sino importarlo desde archivos externos. Esto implica no
+% usar el entorno 'lstlisting' sino usar el comando
+% \lstinputlisting[opciones]{archivo}
+%
+% Un ejemplo, usando también el paquete matlab-prettifier cargado posteriormente:
+% \lstinputlisting[style=Matlab-editor, caption = {Cálculo del vector de covarianza de dos señales.}]{matlab.m}
+\usepackage{listingsutf8}
+\lstset{inputencoding=utf8/latin1}
+
+% Cambiamos "Listing" o "Listado" por "Programa"
+%\renewcommand{\lstlistingname}{Programa}
+% Para MATLAB
+\usepackage[numbered,framed]{matlab-prettifier}
+
+
+ % to allow verbatim in footnote
+\usepackage{bigfoot}
+
+
 % Paquete para modificar el espaciado de las listas y sus ítems. El espaciado
 % por defecto de KOMA-Script (¿o de LaTeX?) es demasiado amplio para mi gusto.
 \usepackage{enumitem}
